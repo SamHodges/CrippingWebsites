@@ -2,43 +2,173 @@
 <html lang="en" dir="ltr">
 
 <head>
-	<meta charset="utf-8">
-	<title>Screen Readers Only!</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./style.css">
+  <meta charset="utf-8">
+  <title>Keyboard Nav Only!</title>
 </head>
 
-<body onmousedown="return false" onselectstart="return false">
-<link rel="stylesheet" href="./style.css">
+<body onmousedown="fuckWithMouse()">
 
-<div>
-	<h1>
-		American Foundation for the Blind
-	</h1>
-	<p>
-		Disclaimer: this website was created only for screen reader accessibility. Sighted people will see a black page (the text is black, and so invisible), with white boxes that say "image" and a button with a question mark image. The page descriptions act as if this page is fully functional, when in reality it is only accessible to you.
-	</p>
-	<p>
-		The American Foundation for the Blind, or AFB, was founded in 1921 by M.C. Migel, who wanted to help veterans blinded in World War I. 	 also helped raise awareness of AFB, both through her activism and adovacy speeches in more than 39 countries.
-	</p>
-	 <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
-	 	<title>An old, white man staring upwards above the camera. He's ready to write with an ink pen in an office. He's dressed very officially in a suit, and the photo is old and in black and white.</title>
-	       <rect width="100%" height="100%" fill="white">
-	       </rect>
-	       <text x="20" y="35">Image</text>
-      </svg>
-	<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
-	 	<title>An old, white woman smiling at the camera. She's wearing a pearl necklace and a nice-looking cardigan. She's in front of a door.</title>
-	       <rect width="100%" height="100%" fill="white">
-	       </rect>
-	       <text x="20" y="35">Image</text>
-      </svg>
-	<p>
-		AFB has designed many assistive technologies, including the Talking Book Program, which provided audio books for millions of blind people. AFB has also designed braille writers, magnifiers and audio blood pressure monitors.
-	</p> 
-	<p>
-		AFB also advocates in Washington DC on issues that affect blind people. They advocated for the American with Disabilties Act in 1990, push for more inclusive educational policies for children, and encure consumer products are accessible for blind people.
-	</p>
-	<a href="https://www.afb.org/"><img src="./question_mark.jpg" alt="link to AFB website" style="width:42px;height:42px;"></a>
+<div class="sidenav">
+  <span>
+  <button class="dropdown-btn" tabindex="1" id="section-1" class="tab">Personal Details</button>
+  <div class="dropdown-container">
+  	<form id="regForm1" action="">
+		<!-- One "tab" for each step in the form: -->
+		<div>
+      <p disabled="disabled">Name:</p>
+		  <p><input tabindex="1" placeholder="First name..." oninput="this.className = ''"></p>
+		  <p><input tabindex="1" placeholder="Last name..." oninput="this.className = ''"></p>
+		</div>
+		</form>
+  </div>
+</span>
+
+<span>
+  <button class="dropdown-btn" tabindex="1" class="tab" id="section-2">Application Questions</button>
+  <div class="dropdown-container">
+  	<form id="regForm2" action="">
+		<!-- One "tab" for each step in the form: -->
+		<div>Why do you want to sell your soul to capitalism?
+		  <p><input tabindex="1" placeholder="I need to live..." oninput="this.className = ''"></p>
+		</div>
+		</form>
+  </div>
+</span>
+
+<span>
+  <button class="dropdown-btn" tabindex="1" class="tab" id="section-3">References</button>
+  <div class="dropdown-container">
+  	<form id="regForm3" action="">
+		<!-- One "tab" for each step in the form: -->
+		<div>How Many Famous People Do You Know?
+		  <p><input tabindex="1" placeholder="Important Person 1" oninput="this.className = ''"></p>
+      <p><input tabindex="1" placeholder="Important Person 2" oninput="this.className = ''"></p>
+      <p><input tabindex="1" placeholder="Random Person to Fill Space" oninput="this.className = ''"></p>
+		</div>
+		</form>
+  </div>
+</span>
+
+<span>
+  <button class="dropdown-btn" tabindex="1" class="tab" id="section-4">Equal Opportunities</button>
+  <div class="dropdown-container">
+  	<form id="regForm4" action="">
+		<!-- One "tab" for each step in the form: -->
+		<div>Are You Disabled?
+		  <p><input tabindex="1" name="disabled" type="radio" id="check1" oninput="this.className = ''">
+        <label for="check1">Always</label></p>
+      <p><input tabindex="1" name="disabled" type="radio" id="check2" oninput="this.className = ''">
+        <label for="check2">Only on Sundays</label>
+      </p>
+      <p><input tabindex="1" name="disabled" type="radio" id="check3" oninput="this.className = ''">
+        <label for="check3">Unfortunately Not</label></p>
+		</div>
+		</form>
+  </div>
+</span>
+
+<button class="button" tabindex="1" id="submit">Submit</button>
+<p id="submit-status"></p>
+
+<p><a href="screenReader.html" tabindex="1">Screen Reader Website</a></p>
+
+  
+<div id="waste-space"> </div>
+
+<div id="myBtn" style="background-color:black;color:white;padding:30px">Bottom of Page</div>
+<div style="background-color:lightgrey;padding:30px 30px 2500px">You'll just keep coming back every time you click.</div>
+
 </div>
+
+<script>
+
+let dropdown = document.getElementsByClassName("dropdown-btn");
+let i;
+let currentPosition = 0;
+let currentId = null;
+
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("keypress", function(e) {
+    if (e.key == "1" || e.key == "2" || e.key == "3" || e.key == "4") return;
+    currentId= this.id;
+    this.classList.toggle("active");
+    let dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
+
+
+function openDropDown(dropNum){
+  dropdown[dropNum].classList.toggle("active");
+  dropdown[dropNum].focus();
+  let dropdownContent = dropdown[dropNum].nextElementSibling;
+  console.log(dropdownContent);
+  if (dropdownContent.style.display === "block") {
+    dropdownContent.style.display = "none";
+  } else {
+    dropdownContent.style.display = "block";
+  }
+}
+
+
+document.getElementById("submit").addEventListener("keypress", function() {
+  console.log("done!");
+  document.getElementById("submit-status").innerHTML = "Submitted!";
+});
+
+document.addEventListener("keyup", function(e){
+  let elem = document.activeElement;
+  console.log(elem);
+  if (elem.tagName != "INPUT"){
+    if (e.key == "1") openDropDown(0);
+    if (e.key == "2") openDropDown(1);
+    if (e.key == "3") openDropDown(2);
+    if (e.key == "4") openDropDown(3);
+  }
+  if(e.key == "Escape"){
+    console.log(document.activeElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[1]);
+   document.activeElement.parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[1].focus();
+   // document.activeElement.blur();
+   // document.getElementById(currentId).focus();
+
+}
+});
+
+function fuckWithMouse(){
+  console.log("fucking");
+  let up = document.getElementById("myBtn");
+  console.log(document.getElementById("myBtn"));
+  up.scrollIntoView();
+
+	dropdown[currentPosition].classList.toggle("active");
+	let dropdownContent = dropdown[currentPosition].nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+      if (currentPosition == 3) currentPosition = -1;
+      currentPosition++;
+    } else {
+      dropdownContent.style.display = "block";
+    }
+}
+
+
+let mybutton = document.getElementById("myBtn");
+
+// // When the user clicks on the button, scroll to the top of the document
+// function topFunction() {
+//   console.log("scroll!");
+//   const element = document.getElementById("regForm1");
+//   element.scrollIntoView();
+// }
+</script>
+
 </body>
-</html>
- 
+</html> 
